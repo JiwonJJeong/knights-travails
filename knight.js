@@ -11,15 +11,19 @@ const knightMoves = function(start, end){
     }
     if (!(Array.isArray(start) && Array.isArray(end))){
         console.error("Please input start and end of knight as arrays.");
+        return;
     }
     if (start.length != 2 || end.length != 2){
         console.error("Please input positions as [x,y].")
+        return;
     }
     if (start[0] < 0 || start[0] >7 || start[1] <0 || start[0]>7){
         console.error("Start position out of bounds.");
+        return;
     }
     if (end[0] < 0 || end[0] >7 || end[1] <0 || end[0]>7){
         console.error("End position out of bounds.");
+        return;
     }
     // breadth-first search works best (queues)
     let pathQueue = [[start]];
@@ -29,7 +33,7 @@ const knightMoves = function(start, end){
         for (let nextSpot of currentVertex.possibleMoves){
             if (!currentVertex.isCoordsSameAsVertex(nextSpot)){
                 let newPath = [...currentPath, nextSpot];
-                if (nextSpot == end){
+                if (end[0]==nextSpot[0] && end[1]== nextSpot[1]){
                     console.log(`You made it in ${newPath.length-1} moves! Here's your path:`);
                     for (let step of newPath){
                         console.log(step);
@@ -74,3 +78,6 @@ const Vertex = function([x,y]){
 
 testVertex = new Vertex([2,2]);
 knightMoves([3,3],[4,3]);
+
+knightMoves([0,0],[7,7]);
+knightMoves([-1,8],[2,3]);

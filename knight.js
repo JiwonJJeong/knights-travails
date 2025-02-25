@@ -9,7 +9,7 @@ const knightMoves = function(start, end){
         console.log(start);
         return;
     }
-    if (!(typeof(start)== Array && typeof(end)==Array)){
+    if (!(Array.isArray(start) && Array.isArray(end))){
         console.error("Please input start and end of knight as arrays.");
     }
     if (start.length != 2 || end.length != 2){
@@ -24,7 +24,7 @@ const knightMoves = function(start, end){
     // breadth-first search works best (queues)
     let pathQueue = [start];
     while (pathQueue.length >0){
-        let currentPath = queue.shift();
+        let currentPath = pathQueue.shift();
         let currentVertex = new Vertex(currentPath[currentPath.length-1]); // the current vertex is last element of first path
         for (let nextSpot of currentVertex.values()){
             if (!currentVertex.isCoordsSameAsVertex(nextSpot)){
@@ -78,5 +78,4 @@ const Vertex = function([x,y]){
     };
 }
 
-const testVertex = new Vertex([2,1]);
-console.log(testVertex);
+knightMoves([3,3],[4,3]);

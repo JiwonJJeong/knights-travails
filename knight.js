@@ -27,16 +27,17 @@ const knightMoves = function(start, end){
         let currentPath = queue.shift();
         let currentVertex = new Vertex(currentPath[currentPath.length-1]); // the current vertex is last element of first path
         for (let nextSpot of currentVertex.values()){
-            // if (nextSpot is not in currentpath)
-            let newPath = [...currentPath, [nextSpot]];
-            if (nextSpot == end){
-                console.log(`You made it in ${newPath.length-1} moves! Here's your path:`);
-                for (let step of newPath){
-                    console.log(step);
+            if (!currentVertex.isCoordsSameAsVertex(nextSpot)){
+                let newPath = [...currentPath, [nextSpot]];
+                if (nextSpot == end){
+                    console.log(`You made it in ${newPath.length-1} moves! Here's your path:`);
+                    for (let step of newPath){
+                        console.log(step);
+                    }
+                    return;
                 }
-                return;
+                pathQueue.push(newPath);
             }
-            pathQueue.push(newPath);
         }
     }
 }
@@ -60,6 +61,11 @@ const Vertex = function([x,y]){
         rightUpFlat = y<7 ? [x+2,y+1] : null;
         rightDownFlat = y>0 ? [x+2,y-1] : null;
     }
+
+    const isCoordsSameAsVertex = function([a,b]){
+        return (x==a && y==b);
+    }
+
     return {leftUpTall,
         leftDownTall,
         leftUpFlat,
@@ -68,6 +74,7 @@ const Vertex = function([x,y]){
         rightDownTall,
         rightUpFlat,
         rightDownFlat,
+        isCoordsSameAsVertex,
     };
 }
 

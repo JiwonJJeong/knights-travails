@@ -4,7 +4,17 @@
 // finds (one of the) shortest path between start and end
 // prints number of moves and the path taken
 const knightMoves = function(start, end){
-
+    // breadth-first search works best (queues)
+    let pathQueue = [new Vertex(start)];
+    // while queue has something in it
+        let currentPath = queue.shift();
+        let currentVertex = new Vertex(currentPath[currentPath.length-1]); // the current vertex is last element of first path
+        // for each possible move at currentVertex
+            // if is isnt in knightPath
+                // let newPath = [...currentPath, [newSpot]]
+                // check if condition is complete
+                    // end function and console log stuff
+                // push new path to pathQueue
 }
 
 // represent Vertex and its connections

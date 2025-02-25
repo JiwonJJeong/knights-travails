@@ -22,13 +22,13 @@ const knightMoves = function(start, end){
         console.error("End position out of bounds.");
     }
     // breadth-first search works best (queues)
-    let pathQueue = [start];
+    let pathQueue = [[start]];
     while (pathQueue.length >0){
         let currentPath = pathQueue.shift();
         let currentVertex = new Vertex(currentPath[currentPath.length-1]); // the current vertex is last element of first path
-        for (let nextSpot of currentVertex.values()){
+        for (let nextSpot of currentVertex.possibleMoves){
             if (!currentVertex.isCoordsSameAsVertex(nextSpot)){
-                let newPath = [...currentPath, [nextSpot]];
+                let newPath = [...currentPath, nextSpot];
                 if (nextSpot == end){
                     console.log(`You made it in ${newPath.length-1} moves! Here's your path:`);
                     for (let step of newPath){
@@ -45,37 +45,32 @@ const knightMoves = function(start, end){
 // represent Vertex and its connections
 // dynamically explore possible moves instead of actually creating graph structure
 const Vertex = function([x,y]){
+    let possibleMoves = [];
     if (x >= 1){
-        leftUpTall = y<6 ? [x-1,y+2] : null;
-        leftDownTall = y>1 ? [x-1,y-2] : null;
+        y<6 ? possibleMoves.push([x-1,y+2]) : null;
+        y>1 ? possibleMoves.push([x-1,y-2]) : null;
     }
     if (x >=2){
-        leftUpFlat = y<7 ? [x-2,y+1] : null;
-        leftDownFlat = y>0 ? [x-2,y-1] : null;
+        y<7 ? possibleMoves.push([x-2,y+1]) : null;
+        y>0 ? possibleMoves.push([x-2,y-1]) : null;
     }
     if (x <= 6){
-        rightUpTall = y<6 ? [x+1,y+2] : null;
-        rightDownTall = y>1 ? [x+1,y-2] : null;
+        y<6 ? possibleMoves.push([x+1,y+2]) : null;
+        y>1 ? possibleMoves.push([x+1,y-2]) : null;
     }
     if (x<=5){
-        rightUpFlat = y<7 ? [x+2,y+1] : null;
-        rightDownFlat = y>0 ? [x+2,y-1] : null;
+        y<7 ? possibleMoves.push([x+2,y+1]) : null;
+        y>0 ? possibleMoves.push([x+2,y-1]) : null;
     }
 
     const isCoordsSameAsVertex = function([a,b]){
         return (x==a && y==b);
     }
 
-    return {leftUpTall,
-        leftDownTall,
-        leftUpFlat,
-        leftDownFlat,
-        rightUpTall,
-        rightDownTall,
-        rightUpFlat,
-        rightDownFlat,
+    return {possibleMoves,
         isCoordsSameAsVertex,
-    };
-}
+    }
+};
 
+testVertex = new Vertex([2,2]);
 knightMoves([3,3],[4,3]);

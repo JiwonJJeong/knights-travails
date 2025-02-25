@@ -9,6 +9,18 @@ const knightMoves = function(start, end){
         console.log(start);
         return;
     }
+    if (!(typeof(start)== Array && typeof(end)==Array)){
+        console.error("Please input start and end of knight as arrays.");
+    }
+    if (start.length != 2 || end.length != 2){
+        console.error("Please input positions as [x,y].")
+    }
+    if (start[0] < 0 || start[0] >7 || start[1] <0 || start[0]>7){
+        console.error("Start position out of bounds.");
+    }
+    if (end[0] < 0 || end[0] >7 || end[1] <0 || end[0]>7){
+        console.error("End position out of bounds.");
+    }
     // breadth-first search works best (queues)
     let pathQueue = [start];
     while (pathQueue.length >0){
